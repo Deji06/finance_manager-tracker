@@ -14,7 +14,7 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signInSchema, type signInFormData } from "../../types/auth";
-import { signIn, sync_user } from "../../services/authService";
+import { signIn } from "../../services/authService";
 import { useAuthStore } from "../../store/authStore";
 import { toast } from "sonner";
 
@@ -56,7 +56,7 @@ export default function SignIn() {
   const onSubmit = async (data: signInFormData) => {
     try {
       await signIn(data);
-      await sync_user()
+      // await sync_user()
       toast.success("Signed in successfully!", { duration: 4000 });
       navigate("/dashboard");
     } catch (error: any) {

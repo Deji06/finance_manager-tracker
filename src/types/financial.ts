@@ -10,24 +10,37 @@ export const categoryEnum = z.enum([
   "OTHERS",
 ])
 
-export const expenseSchema = z.object({
+
+// expense
+export const createExpenseSchema = z.object({
   amount: z.number().positive("Amount must be greater than zero"),
   description: z.string().min(3, "Description is too short").max(100),
   category: categoryEnum,
-  date: z.string().datetime().optional(), 
-  recurring: z.boolean().optional().default(false),
+  recurring: z.boolean()
 });
+
+export const expenseResponseSchema = createExpenseSchema.extend({
+  id: z.string().uuid(),   
+  date: z.string().datetime(), 
+
+})
+
+// update expense schema
 
 // For unexpected money 
 export const extraIncomeSchema = z.object({
   amount: z.number().positive("Amount must be greater than zero"),
   source: z.string().min(2, "Source name is required"),
-  date: z.string().datetime().optional(),
 });
+
+export const extraIncomeResponseSchema = extraIncomeSchema.extend({
+    id: z.string().uuid(),   
+    date: z.string().datetime(), 
+})
 
 // For recurring subscriptions (e.g., "Netflix")
 // for form input
-export const subscriptionSchema = z.object({
+export const createSubscriptionSchema = z.object({
   name: z.string().min(2, "Subscription name is required"),
   amount: z.number().positive(),
   billingCycle: z.enum(["MONTHLY", "YEARLY"]),
@@ -42,32 +55,29 @@ export const subscriptionSchema = z.object({
     .number()
     .int("Must be a whole number")
     .min(0, "Cannot be negative")
-    .max(30, "Maximum 30 days before")
-    .optional()                  
-    .default(2),
+    .max(30, "Maximum 30 days before"),
+    // .optional()                  
+    // .default(2),
   provider: z.string().optional(), 
 }).strict();
 
 // Response schema (for data gotten from server)
-export const subscriptionResponseSchema = subscriptionSchema.extend({
+export const subscriptionResponseSchema = createSubscriptionSchema.extend({
   id: z.string().uuid(),      
-  userId: z.string().uuid(),
-  isActive: z.boolean().default(true),
-  startDate: z.string().datetime().optional(),
-  lastRemindedAt: z.string().datetime().nullable().optional(),
-  createdAt: z.string().datetime().optional(),
-  updatedAt: z.string().datetime().optional(),
 });
+
+
 
  
 // For updating the user profile (Onboarding)
 export const profileUpdateSchema = z.object({
   monthlyIncome: z.number().nonnegative(),
+  email: z.string().email("Invalid email address").optional(),
   currency: z
     .string()
     .length(3, "Currency must be a 3-letter code")
     .regex(/^[A-Z]{3}$/, "Currency must be uppercase 3 letters (e.g. NGN, USD)")
-    .default("NGN"),
+    .default("NGN").optional(),
 
   userName: z
     .string()
@@ -88,24 +98,30 @@ export const profileUpdateSchema = z.object({
     .min(9, "Phone number is too short")
     .max(15, "Phone number is too long")
     .optional(),
+  });
 
-  // budgetGoals as JSON — flexible record of category → amount
-  budgetGoals: z
-    .record(categoryEnum,
-      z.number().positive("Budget amount must be greater than zero").optional(),
-    )
-    .optional()
-    .refine(
-      (goals) => {
-        if (!goals) return true;
-        return Object.keys(goals).length <= 20; // example limit
-      },
-      { message: "Too many budget categories defined" },
-    ),
-});
-
-
-export type subscriptionFormType = z.infer<typeof subscriptionSchema>
+export type subscriptionFormType = z.infer<typeof createSubscriptionSchema>
 export type subscriptionResponseType = z.infer<typeof subscriptionResponseSchema>
 export type categoryType = z.infer<typeof categoryEnum>
-export type profileType = z.infer<typeof profileUpdateSchema>
+export type profileFormData = z.infer<typeof profileUpdateSchema>
+export type expenseType = z.infer<typeof createExpenseSchema>
+export type expenseResponseType = z.infer<typeof expenseResponseSchema>
+export type extraIncomeType = z.infer<typeof extraIncomeSchema>
+export type extraIncomeResponseType = z.infer<typeof extraIncomeResponseSchema>
+
+
+
+    
+    // budgetGoals as JSON — flexible record of category → amount
+    // budgetGoals: z
+    //   .record(categoryEnum,
+    //     z.number().positive("Budget amount must be greater than zero").optional(),
+    //   )
+    //   .optional()
+    //   .refine(
+    //     (goals) => {
+    //       if (!goals) return true;
+    //       return Object.keys(goals).length <= 20; // example limit
+    //     },
+    //     { message: "Too many budget categories defined" },
+    //   ),

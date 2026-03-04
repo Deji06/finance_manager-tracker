@@ -1,7 +1,9 @@
 import { profile } from "../lib/api";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import {updateProfile} from "../lib/api";
+import type { profileFormData } from "../types/financial";
 
-
+// use query for get request
 export const useProfile = () => {
     return useQuery({
         queryKey:['profile'],
@@ -16,4 +18,19 @@ export const useProfile = () => {
         gcTime: 10 * 60 * 1000,
     })
 
+}
+
+// usemutation for post, pathch and delete requests
+export const useEditProfile = () => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: async(data:profileFormData) => {
+      const response = await updateProfile(data)
+      return response.data.data
+    },
+     onSuccess: () => {
+      queryClient.invalidateQueries({queryKey:['profile']})
+      queryClient.invalidateQueries({queryKey:["dashboardSummary"]})
+     }
+  })
 }

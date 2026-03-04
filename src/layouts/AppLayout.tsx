@@ -7,9 +7,9 @@ import {
   BarChart3,
   Lightbulb,
   CircleUserRound,
-  Menu,
-  X,
-  User,
+  // Menu,
+  // X,
+  // User,
 } from "lucide-react";
 import { CgLogOut } from "react-icons/cg";
 import { IoWalletSharp } from "react-icons/io5";

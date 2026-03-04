@@ -89,7 +89,7 @@ if (isLoading || isFetching) {
     <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur bg-black/5">
       <div className="w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-[#ECECEC] dark:bg-gray-900 rounded-2xl shadow-2xl p-6">
         <div className="flex justify-between items-center mb-3">
-          <button onClick={onClose} className="bg-white border px-3 py-2 rounded-[10px] border-none">✕</button>
+          <button onClick={onClose} className="bg-white border px-3 py-2 rounded-[10px] border-none dark:text-gray-800 cursor-pointer">✕</button>
           <h2 className="text-xl  dark:text-white w-fit m-auto font-bold">
             My Profile
           </h2>
@@ -100,43 +100,43 @@ if (isLoading || isFetching) {
         <div className="bg-white rounded-[15px] p-3 mt-1 space-y-3"> 
             <div className="flex justify-between">
               <div className="flex items-center gap-x-3">
-                <User size={20} />
-                <strong>username</strong>
+                <User size={20} className="dark:text-gray-800" />
+                <strong className="dark:text-gray-800 capitalize">username</strong>
               </div>
-                <p className="font-semibold">{data.userName}</p>
+                <p className="font-semibold dark:text-gray-800">{data.userName}</p>
             </div>
 
              <div className="flex justify-between">
               <div className="flex items-center gap-x-3">
-                <Mail size={20} />
-                <strong className="capitalize">email</strong>
+                <Mail size={20}  className="dark:text-gray-800"/>
+                <strong className="capitalize dark:text-gray-800">email</strong>
               </div>
-                <p className="font-semibold">{data.email}</p>
+                <p className="font-semibold dark:text-gray-800">{data.email}</p>
             </div>
 
             <div className="flex justify-between">
               <div className="flex items-center gap-x-3">
-                <Phone size={20} />
-                <strong className="block text-sm">Phone Number</strong>
+                <Phone size={20}  className="dark:text-gray-800"/>
+                <strong className="block text-sm dark:text-gray-800">Phone Number</strong>
               </div>
-              <p className="font-semibold text-gray-900 dark:text-white">{data.phoneNumber || 'Not set'}</p>
+              <p className="font-semibold text-gray-900 dark:text-gray-800">{data.phoneNumber || 'Not set'}</p>
            </div>
 
           <div className="flex justify-between">
             <div className="flex items-center gap-x-3">
-              <Wallet size={20}/>
-             <strong className="block text-sm">Monthly Income</strong>
+              <Wallet size={20} className="dark:text-gray-800" />
+             <strong className="block text-sm dark:text-gray-800">Monthly Income</strong>
 
             </div>
-            <p>₦{data.monthlyIncome.toLocaleString() || '0'}</p>
+            <p className="dark:text-gray-800 font-semibold">₦{data.monthlyIncome.toLocaleString() || '0'}</p>
           </div>
 
           <div className="flex justify-between">
             <div className="flex items-center gap-x-3">
-              <CreditCard  size={20}/>
-              <strong className="block text-sm">Currency</strong>
+              <CreditCard  size={20} className="dark:text-gray-800"/>
+              <strong className="block text-sm dark:text-gray-800">Currency</strong>
             </div>
-            <p>{data.currency || 'NGN'}</p>
+            <p className="dark:text-gray-800 font-semibold">{data.currency || 'NGN'}</p>
           </div>
 
           <div className="flex justify-end mt-5">
@@ -158,11 +158,11 @@ if (isLoading || isFetching) {
 
         <h2 className="capitalize text-md mt-2 text-gray-500 dark:text-gray-400 ml-2">security</h2>
         <div className="bg-white rounded-[15px] p-3 mt-2 space-y-3">
-            <h1>change password</h1>
-            <Link to={"/sign-in"} className="flex items-center gap-x-2" 
+            {/* <h1 className="">change password</h1> */}
+            <Link to={"/sign-in"} className="flex items-center gap-x-2 dark:text-gray-800 px-4 py-2 rounded-lg hover:bg-red-50 transition w-fit" 
              onClick={handleSignOut}
             >
-              <CgLogOut  size={20}/>
+              <CgLogOut  size={20} className="dark:text-gray-800"/>
               sign out
             </Link>
         </div>

@@ -42,3 +42,23 @@ export const formatCurrency = (amount: number, currency = 'NGN') => {
 
   return `${time} · ${month} ${day} ${year}`
 }
+
+
+export const formatExpenseDate = (date: string) => {
+  const d = new Date(date)
+
+  const datePart = d.toLocaleDateString("en-US", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  })
+
+  const timePart = d.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  })
+
+  return { datePart, timePart }
+}

@@ -6,8 +6,8 @@ import {
   Calendar,
   Wallet,
   TrendingUp,
-  Bell,
-  Search,
+  // Bell,
+  // Search,
   ChevronRight
 } from "lucide-react";
 import { useDashboard } from "../services/dashboardService";
@@ -15,24 +15,13 @@ import { formatCurrency, dateFormatter } from "../utils/format";
 import type { subscriptionResponseType } from "../types/financial";
 import ProviderIcon from "../components/ProviderIcon";
 import { Link } from "react-router-dom";
+import { DashboardSkeleton } from "../components/skeletons/DashboardSkeleton";
 
 const Dashboard = () => {
   const { data:dashboardData, isLoading, isError, error, isFetching } = useDashboard();
 
   // Loading state
-  if (isLoading || isFetching) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-screen gap-4">
-        <div className="relative">
-          <Loader2 className="h-12 w-12 animate-spin text-[#10B981]" />
-          <div className="absolute inset-0 blur-xl bg-[#10B981]/20 animate-pulse"></div>
-        </div>
-        <p className="text-gray-500 font-medium animate-pulse tracking-wide">
-          Syncing your finances...
-        </p>
-      </div>
-    );
-  }
+  if (isLoading || isFetching) return < DashboardSkeleton />
 
   // Error state
   if (isError) {
