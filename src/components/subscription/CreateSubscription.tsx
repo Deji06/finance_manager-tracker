@@ -15,7 +15,11 @@ const CreateSubscription = ({ onSuccess }: { onSuccess: () => void }) => {
 
   const onSubmit = async (data: subscriptionFormType) => {
     try {
-      await create(data);
+      const formattedData = {
+      ...data,
+      nextBillingDate:  new Date(data.nextBillingDate).toISOString(),
+    };
+      await create(formattedData);
       toast.success("Subscription added!");
       onSuccess();
     } catch (err) {
@@ -24,13 +28,13 @@ const CreateSubscription = ({ onSuccess }: { onSuccess: () => void }) => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 rounded-lg">
       <div>
-        <h2 className="text-2xl font-black text-gray-900">New Service</h2>
+        {/* <h2 className="text-2xl font-black text-gray-900">New Service</h2> */}
         <p className="text-gray-500 text-sm">Fill in the details for your recurring bill.</p>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 dark:text-gray-900">
         <div className="grid grid-cols-2 gap-4">
           <div className="col-span-2">
             <label className="text-xs font-bold uppercase text-gray-400 ml-1">Service Name</label>
@@ -66,7 +70,7 @@ const CreateSubscription = ({ onSuccess }: { onSuccess: () => void }) => {
           </div>
         </div>
 
-        <button disabled={isPending} className="w-full bg-[#10B981] hover:bg-[#0da673] text-white py-5 rounded-[24px] font-black text-lg transition-all shadow-xl shadow-green-100 disabled:opacity-50">
+        <button disabled={isPending} className="w-full bg-[#10B981] hover:bg-[#0da673] text-white py-4 rounded-[15px] font-black transition-all shadow-xl shadow-green-100 disabled:opacity-50">
           {isPending ? <Loader2 className="animate-spin mx-auto" /> : "Start Subscription"}
         </button>
       </form>

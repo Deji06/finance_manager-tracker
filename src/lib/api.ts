@@ -61,8 +61,13 @@ export const deleteExtraIncome = (id:string) => api.delete(`api/v1/extra-incomes
 
 // subscription
 export const getSubscription = () => api.get('api/v1/subscriptions')
-export const createSubscription = (data:subscriptionFormType) => api.post('api/v1/subcriptions', data)
+export const createSubscription = (data:subscriptionFormType) => api.post('api/v1/subscriptions', data)
 export const updateSubscription = (id:string, data:subscriptionFormType) => api.patch(`api/v1/subscriptions/${id}`, data)
 export const deleteSubscription = (id:string) => api.delete(`api/v1/subscriptions/${id}`)
+
+// report
+export const getReports = () => api.get('/api/v1/reports');
+export const generateReport = (period: string) => api.post('/api/v1/reports/generate', { period });
+export const getReportByPeriod = (period: string) => api.get(`/api/v1/reports/${period}`);
 
 export default api

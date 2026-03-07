@@ -1,5 +1,5 @@
 import {
-  Loader2,
+  // Loader2,
   AlertCircle,
   ArrowUpRight,
   ArrowDownRight,
@@ -218,10 +218,10 @@ const Dashboard = () => {
           </div>
           <Link 
             to='/subscription' className="flex items-center mt-1 dark:text-[#10B981] justify-end">
-              more
-            <ChevronRight size={15}  className="pt-1"/>
-            <ChevronRight size={15}  className="pt-1"/>
-            <ChevronRight size={15}  className="pt-1"/>
+              more...
+            {/* <ChevronRight size={15}  className="pt-1"/> */}
+            {/* <ChevronRight size={15}  className="pt-1"/>
+            <ChevronRight size={15}  className="pt-1"/> */}
            
           </Link>
         </section>

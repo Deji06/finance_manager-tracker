@@ -1,7 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createSubscription, deleteSubscription, getSubscription, updateSubscription } from "../lib/api";
 import { toast } from "sonner";
-import { id } from "zod/v4/locales";
 import type { subscriptionFormType } from "../types/financial";
 
 export const useGetSubscriptions = () => {
@@ -20,7 +19,8 @@ export const useCreateSubscription = () => {
         mutationFn: createSubscription,
         onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["subscriptions"] });
-      toast.success("Subscription cancelled");
+      queryClient.invalidateQueries({ queryKey: ["dashboardSummary"] });
+      // toast.success("Subscription cancelled");
     },
         
     })
@@ -36,7 +36,7 @@ export const useUpdateSubscription = () => {
         },
         onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["subscriptions"] });
-      toast.success("Subscription updated");
+      // toast.success("Subscription updated");
     },
         
     })

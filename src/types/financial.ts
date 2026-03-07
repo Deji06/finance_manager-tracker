@@ -46,11 +46,12 @@ export const createSubscriptionSchema = z.object({
   billingCycle: z.enum(["MONTHLY", "YEARLY"]),
   nextBillingDate: z
     .string()
-    .datetime("Invalid date format")
+   .refine((date) => !isNaN(Date.parse(date)), "Invalid date format")
     .refine(
       (date) => new Date(date) > new Date(),
-      "Next billing date must be in the future",
+      "Next billing date must be in the future"
     ),
+    // .datetime("Invalid date format")
     reminderDaysBefore: z
     .number()
     .int("Must be a whole number")
@@ -100,6 +101,7 @@ export const profileUpdateSchema = z.object({
     .optional(),
   });
 
+
 export type subscriptionFormType = z.infer<typeof createSubscriptionSchema>
 export type subscriptionResponseType = z.infer<typeof subscriptionResponseSchema>
 export type categoryType = z.infer<typeof categoryEnum>
@@ -108,6 +110,13 @@ export type expenseType = z.infer<typeof createExpenseSchema>
 export type expenseResponseType = z.infer<typeof expenseResponseSchema>
 export type extraIncomeType = z.infer<typeof extraIncomeSchema>
 export type extraIncomeResponseType = z.infer<typeof extraIncomeResponseSchema>
+export type ReportType = {
+  id: string;
+  period: string; 
+  totalExpenses: number;
+  totalIncome: number;
+  generatedAt: string;
+};
 
 
 

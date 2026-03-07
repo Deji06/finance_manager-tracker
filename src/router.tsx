@@ -9,8 +9,10 @@ import Dashboard from "../src/pages/Dashboard"
 import { useAuthStore } from "./store/authStore";
 import Expense from "./pages/Expense";
 import ExtraIncome from "./pages/Extra-Income";
-import Subscription from "./pages/Subscription";
+import {Subscription} from "./pages/Subscription";
 import EditProfile from "./pages/EditProfile";
+import Insight from "./pages/Insight";
+import { Reports } from "./pages/Reports";
 // import Profile from "./pages/Profile";
 
 const ProtectedLayout = () => {
@@ -53,6 +55,8 @@ export const router = createBrowserRouter([
           {path: '/extra-income', element: <ExtraIncome />},
           {path: '/subscription', element: <Subscription />},
           {path: '/expenses', element: <Expense />},
+          {path: '/insights', element: <Insight />},
+          {path: '/reports', element: <Reports />},
         ],
       },
     ],

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useGetExpense, useDeleteExpense } from "../../services/expenseService";
 import type { expenseResponseType } from "../../types/financial";
 import { formatCurrency, formatExpenseDate } from "../../utils/format";
@@ -89,7 +89,7 @@ const GetExpenses = ({ onEditExpense }: GetExpensesProps) => {
                       </div>
 
                       <div className="text-right">
-                        <h1 className="font-bold text-gray-900">{formatCurrency(amount)}</h1>
+                        <h1 className="font-bold text-gray-900 dark:text-gray-500">{formatCurrency(amount)}</h1>
                       </div>
 
                       <div className="flex justify-end relative">
@@ -136,7 +136,7 @@ const GetExpenses = ({ onEditExpense }: GetExpensesProps) => {
                 disabled={page === 1}
                 className="p-2 border border-gray-200 rounded-lg hover:bg-gray-50 disabled:opacity-30 disabled:hover:bg-transparent transition-colors cursor-pointer"
               >
-                <HiChevronLeft size={20} />
+                <HiChevronLeft size={20} color="black" />
               </button>
               
               <button
@@ -148,7 +148,7 @@ const GetExpenses = ({ onEditExpense }: GetExpensesProps) => {
                 disabled={page >= (pagination?.totalPages || 1) || isPlaceholderData}
                 className="p-2 border border-gray-200 rounded-lg hover:bg-gray-50 disabled:opacity-30 disabled:hover:bg-transparent transition-colors cursor-pointer"
               >
-                <HiChevronRight size={20} />
+                <HiChevronRight size={20} color="black" />
               </button>
             </div>
           </div>

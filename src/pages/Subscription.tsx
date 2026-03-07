@@ -2,28 +2,31 @@ import { useState } from "react";
 import { CreditCard, X } from "lucide-react";
 import { useGetSubscriptions } from "../services/subscriptionService";
 import type { subscriptionResponseType } from "../types/financial";
-import { SubscriptionCard } from "../components/subscription/SubscriptionCard";
+import { SubscriptionItem } from "../components/subscription/GetSubscription";
 import CreateSubscription from "../components/subscription/CreateSubscription";
 import EditSubscription from "../components/subscription/EditSubscription";
+import { SubscriptionSkeleton } from "../components/skeletons/SubscriptionSkeleton";
 
 export const Subscription = () => {
   const { data, isLoading } = useGetSubscriptions();
   const [selectedSub, setSelectedSub] = useState<subscriptionResponseType | null>(null);
   const [isCreateOpen, setIsCreateOpen] = useState(false);
 
-  // if (isLoading) return <SubscriptionSkeleton />;
+  if (isLoading) return <SubscriptionSkeleton/>;
   const subscriptions: subscriptionResponseType[] = data?.data || [];
+  // console.log("get sub:", data?.data);
+  
 
   return (
-    <div className="p-4 max-w-6xl mx-auto">
-      <header className="flex justify-between items-center mb-10">
+    <div className="p-2 max-w-6xl mx-auto">
+      <header className="flex justify-between items-center mb-4">
         <div>
           <h1 className="text-3xl font-black tracking-tight">Subscriptions</h1>
           <p className="text-gray-500">Manage your recurring bills and reminders</p>
         </div>
         <button 
           onClick={() => setIsCreateOpen(true)}
-          className="bg-[#0A0D0C] text-white px-6 py-3 rounded-2xl font-bold flex items-center gap-2 hover:bg-black transition-all active:scale-95 cursor-pointer"
+          className="bg-[#10b981] text-white px-6 py-3 rounded-2xl font-bold flex items-center gap-2 hover:bg-[#10b981]/50 transition-all active:scale-95 cursor-pointer"
         >
           <CreditCard size={18} /> Add New
         </button>
@@ -35,9 +38,9 @@ export const Subscription = () => {
         </div>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="">
         {subscriptions.map((sub) => (
-          <SubscriptionCard
+          <SubscriptionItem
             key={sub.id} 
             sub={sub} 
             onEdit={() => setSelectedSub(sub)} 

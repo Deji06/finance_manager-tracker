@@ -1,60 +1,59 @@
-import  type { IconType } from "react-icons"
-import {
-  SiNetflix,
-  SiSpotify,
-  SiApple,
-//   SiShowmax,
-  SiPrime,
-  SiYoutube,
-//   SiMtn,
-  SiAirtel,
-//   SiOpay,
-//   SiPalmpay,
-//   SiKuda,
-//   SiMoniepoint,
-  SiPlaystation,
-//   SiXbox,
-} from "react-icons/si"
-import { PiSpotifyLogo } from "react-icons/pi";
-import { FcElectricity } from "react-icons/fc";
+import * as icons from "simple-icons"
+import { FaWifi } from "react-icons/fa"
+import { SiAirtel, SiPlaystation, SiNetflix, SiSpotify, SiYoutube } from "react-icons/si"
 
 type Props = {
   provider: string
 }
 
-const providerIcons: Record<string, IconType> = {
-  netflix: SiNetflix,
-  spotify: PiSpotifyLogo,
-  "apple music": SiApple,
-  electricity: FcElectricity,
-//   showmax: SiShowmax,
-  "prime video": SiPrime,
-  youtube: SiYoutube,
-//   mtn: SiMtn,
+const reactIconMap: Record<string, any> = {
   airtel: SiAirtel,
-//   opay: SiOpay,
-//   palmpay: SiPalmpay,
-//   kuda: SiKuda,
-//   moniepoint: SiMoniepoint,
   playstation: SiPlaystation,
-//   xbox: SiXbox,
+  netflix: SiNetflix,
+  spotify: SiSpotify,
+  youtube: SiYoutube,
+}
+
+const simpleIconMap: Record<string, keyof typeof icons> = {
+  apple: "siApple",
+  google: "siGoogle",
+  // amazon: "siAmazon",
 }
 
 export default function ProviderIcon({ provider }: Props) {
-  const key = provider.toLowerCase()
-  const Icon = providerIcons[key]
+  const normalized = provider.toLowerCase()
 
-  if (Icon) {
+  const reactMatch = Object.keys(reactIconMap).find((key) =>
+    normalized.includes(key)
+  )
+
+  const simpleMatch = Object.keys(simpleIconMap).find((key) =>
+    normalized.includes(key)
+  )
+
+  if (reactMatch) {
+    const Icon = reactIconMap[reactMatch]
     return (
-      <div className="flex items-center justify-center w-10 h-10 rounded-[50%] bg-gray-300 dark:bg-gray-800">
-        <Icon className="text-xl" size={20} />
+      <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-800">
+        <Icon size={20} />
       </div>
     )
   }
 
-  // fallback — first letter avatar
+  if (simpleMatch) {
+    const icon = icons[simpleIconMap[simpleMatch]]
+
+    return (
+      <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-800">
+        <svg viewBox="0 0 24 24" className="w-5 h-5" fill={`#${icon.hex}`}>
+          <path d={icon.path} />
+        </svg>
+      </div>
+    )
+  }
+
   return (
-    <div className="flex items-center justify-center w-10 h-10 rounded-[50%] bg-gray-300 dark:bg-gray-800 text-white font-semibold">
+    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-300 dark:bg-gray-800 text-white font-semibold">
       {provider.charAt(0).toUpperCase()}
     </div>
   )
