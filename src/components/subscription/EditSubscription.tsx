@@ -21,7 +21,7 @@ const EditSubscription = ({
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    // formState: {  },
   } = useForm<subscriptionFormType>({
     resolver: zodResolver(createSubscriptionSchema),
     defaultValues: { reminderDaysBefore: 2, billingCycle: "MONTHLY" },

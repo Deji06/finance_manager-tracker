@@ -1,5 +1,5 @@
 import * as icons from "simple-icons"
-import { FaWifi } from "react-icons/fa"
+// import { FaWifi } from "react-icons/fa"
 import { SiAirtel, SiPlaystation, SiNetflix, SiSpotify, SiYoutube } from "react-icons/si"
 
 type Props = {

@@ -8,7 +8,7 @@ import {
   TrendingUp,
   // Bell,
   // Search,
-  ChevronRight
+  // ChevronRight
 } from "lucide-react";
 import { useDashboard } from "../services/dashboardService";
 import { formatCurrency, dateFormatter } from "../utils/format";
