@@ -1,18 +1,21 @@
 import { useState, useEffect } from 'react';
+import moneyStress from '../assets/Money-stress-bro.svg'
+import walletBro from '../assets/Wallet-bro.svg'
+import bankruptcy from '../assets/Bankruptcy-bro.svg'
 
 const slides = [
   {
-    image: 'src/assets/Money-stress-bro.svg',
+    image: moneyStress,
     title: 'Your Finances, Made Effortless',
     description: 'From group dinners and fuel to unexpected owambe expenses — track every kobo and stay on top of your budget stress-free.',
   },
   {
-    image: 'src/assets/Wallet-bro.svg',
+    image: walletBro,
     title: 'Never Get Caught Off Guard Again',
     description: "with our app, you can easily track your income and expenses, set financial goals, and make informed decisions about your money.",
   },
   {
-    image: 'src/assets/Bankruptcy-bro.svg',
+    image: bankruptcy,
     title: 'Naira Smart, Life Easier',
     description: 'Track owambe costs, betting stakes, data bundles & salary extras — spot leaks, track your side hustle extra, and chop life responsibly.',
   },

@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { generateReport, getReports } from "../lib/api";
+import { generateReport, getReportByPeriod, getReports } from "../lib/api";
 import { toast } from "sonner";
 
 export const useGetReports = () => {
@@ -23,5 +23,16 @@ export const useGenerateReport = () => {
     onError: (error: any) => {
       toast.error(error.response?.data?.message || "Failed to generate report");
     },
+  });
+};
+
+export const useGetReportDetail = (period: string) => {
+  return useQuery({
+    queryKey: ["report-detail", period],
+    queryFn: async () => {
+      const response = await getReportByPeriod(period);
+      return response.data.data;
+    },
+    enabled: !!period, // Only run if a period is provided
   });
 };
