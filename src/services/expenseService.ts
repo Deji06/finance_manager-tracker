@@ -1,4 +1,4 @@
-import { createExpense, updateExpense, getExpense, deleteExpense, getSingleExpense } from "../lib/api";
+import { createExpense, updateExpense, getExpense, deleteExpense } from "../lib/api";
 import { useQueryClient, useMutation, useQuery } from "@tanstack/react-query";
 import  type {expenseType } from "../types/financial";
 
