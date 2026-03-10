@@ -18,10 +18,16 @@ import { Link } from "react-router-dom";
 import { DashboardSkeleton } from "../components/skeletons/DashboardSkeleton";
 
 const Dashboard = () => {
-  const { data:dashboardData, isLoading, isError, error, isFetching } = useDashboard();
+  const {
+    data: dashboardData,
+    isLoading,
+    isError,
+    error,
+    isFetching,
+  } = useDashboard();
 
   // Loading state
-  if (isLoading || isFetching) return < DashboardSkeleton />
+  if (isLoading || isFetching) return <DashboardSkeleton />;
 
   // Error state
   if (isError) {
@@ -155,7 +161,9 @@ const Dashboard = () => {
                   Side Hustle
                 </span>
               </div>
-              <p className="text-gray-500 dark:text-black font-medium">Extra Income</p>
+              <p className="text-gray-500 dark:text-black font-medium">
+                Extra Income
+              </p>
               <h3 className="text-3xl font-black mt-1 dark:text-black">
                 {formatCurrency(totalExtraIncomeThisMonth)}
               </h3>
@@ -191,38 +199,42 @@ const Dashboard = () => {
             ) : (
               <div className="flex flex-col gap-y-3 mt-2">
                 {upcomingSubscriptions.map((sub: subscriptionResponseType) => (
-                  <div
-                    key={sub.id}
-                    className="flex justify-between items-cente "
-                  >
-                    <div className="flex gap-x-6">
-                      <ProviderIcon  provider={sub.provider ?? "unknown"} />
-                      <div className="flex flex-col">
-                        <p className="font-medium">{sub.name}</p>
-                        <div className="flex gap-x-3 items-center">
-                           <p className="text-xs text-gray-400 flex items-center font-bold uppercase">
-                        {dateFormatter(sub.nextBillingDate)}
-                    </p>
-                      
+                  <>
+                    <div
+                      key={sub.id}
+                      className="flex justify-between items-cente "
+                    >
+                      <div className="flex gap-x-6">
+                        {/* <ProviderIcon provider={sub.provider ?? "unknown"} /> */}
+                        <ProviderIcon provider={sub.provider || sub.name} />
+
+                        <div className="flex flex-col">
+                          <p className="font-medium">{sub.name}</p>
+                          <div className="flex gap-x-3 items-center">
+                            <p className="text-xs text-gray-400 flex items-center font-bold uppercase">
+                              {dateFormatter(sub.nextBillingDate)}
+                            </p>
+                          </div>
                         </div>
                       </div>
+                      <p className="text-[12px]">{sub.billingCycle}</p>
 
+                      <p className="font-bold">{formatCurrency(sub.amount)}</p>
                     </div>
-                          <p className="text-[12px]">{sub.billingCycle}</p>
-                   
-                    <p className="font-bold">{formatCurrency(sub.amount)}</p>
-                  </div>
+                    <div className="w-full border border-gray-50"></div>
+                  </>
                 ))}
               </div>
             )}
           </div>
-          <Link 
-            to='/subscription' className="flex items-center mt-1 dark:text-[#10B981] justify-end">
-              more...
+          <Link
+            to="/subscription"
+            className="flex items-center mt-1 dark:text-[#10B981] justify-end"
+          >
+            more...
             {/* <ChevronRight size={15}  className="pt-1"/> */}
             {/* <ChevronRight size={15}  className="pt-1"/>
             <ChevronRight size={15}  className="pt-1"/> */}
-           
           </Link>
         </section>
         {/* <section className="space-y-6">

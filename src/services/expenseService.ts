@@ -1,4 +1,4 @@
-import { createExpense, updateExpense, getExpense, deleteExpense } from "../lib/api";
+import { createExpense, updateExpense, getExpense, deleteExpense, getSingleExpense } from "../lib/api";
 import { useQueryClient, useMutation, useQuery } from "@tanstack/react-query";
 import  type {expenseType } from "../types/financial";
 
@@ -14,6 +14,15 @@ export const useGetExpense = (page:number, limit:number) => {
         placeholderData: (previousData) => previousData,
     })
 }
+
+// services/expenseService.ts
+// export const useGetSingleExpense = (page: number, limit: number, search: string = "") => {
+//   return useQuery({
+//     queryKey: ["expenses", page, limit, search],
+//     queryFn: () => getSingleExpense(page, limit, search),
+//     placeholderData: (previousData) => previousData, 
+//   });
+// };
 
 
 // post

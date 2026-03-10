@@ -2,7 +2,13 @@ import { useState } from "react";
 import { useGetExpense, useDeleteExpense } from "../../services/expenseService";
 import type { expenseResponseType } from "../../types/financial";
 import { formatCurrency, formatExpenseDate } from "../../utils/format";
-import { HiOutlineDotsVertical, HiOutlinePencil, HiOutlineTrash, HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import {
+  HiOutlineDotsVertical,
+  HiOutlinePencil,
+  HiOutlineTrash,
+  HiChevronLeft,
+  HiChevronRight,
+} from "react-icons/hi";
 import { getCategoryIcon } from "../../utils/categoryIcon";
 import { toast } from "sonner";
 import { ExpenseSkeleton } from "../skeletons/ExpenseSkeleton";
@@ -17,13 +23,21 @@ const GetExpenses = ({ onEditExpense }: GetExpensesProps) => {
   const limit = 10; // We define limit here to pass to our query
 
   // --- CHANGE 2: Passed page and limit to the hook ---
-  const { data: apiResponse, isLoading, isError, isPlaceholderData } = useGetExpense(page, limit);
+  const {
+    data: apiResponse,
+    isLoading,
+    isError,
+    isPlaceholderData,
+  } = useGetExpense(page, limit);
   const { mutate: deleteExpenseMutation } = useDeleteExpense();
 
   const [openMenuId, setOpenMenuId] = useState<string | null>(null);
 
-  if (isLoading) return <ExpenseSkeleton />
-  if (isError) return <div className="p-10 text-center text-red-500">Error loading data.</div>;
+  if (isLoading) return <ExpenseSkeleton />;
+  if (isError)
+    return (
+      <div className="p-10 text-center text-red-500">Error loading data.</div>
+    );
 
   // --- CHANGE 3: Destructure the new API structure (data + pagination) ---
   const expenseData: expenseResponseType[] = apiResponse?.data || [];
@@ -31,13 +45,16 @@ const GetExpenses = ({ onEditExpense }: GetExpensesProps) => {
 
   // Group by same calendar day (Logic remains same, but uses expenseData from destruction)
   const groupedExpenses = expenseData.reduce(
-    (acc: Record<string, expenseResponseType[]>, expense: expenseResponseType) => {
+    (
+      acc: Record<string, expenseResponseType[]>,
+      expense: expenseResponseType,
+    ) => {
       const dayKey = new Date(expense.date).toDateString();
       if (!acc[dayKey]) acc[dayKey] = [];
       acc[dayKey].push(expense);
       return acc;
     },
-    {}
+    {},
   );
 
   const toggleMenu = (id: string) => {
@@ -56,16 +73,26 @@ const GetExpenses = ({ onEditExpense }: GetExpensesProps) => {
   return (
     <div className="mt-3 relative" onClick={() => setOpenMenuId(null)}>
       {expenseData.length === 0 ? (
-        <div className="text-center py-10 text-gray-400">No expenses found.</div>
+        <div className="text-center py-10 text-gray-400">
+          No expenses found.
+        </div>
       ) : (
         <>
-          {(Object.entries(groupedExpenses) as [string, expenseResponseType[]][]).map(([day, expenses]) => (
+          {(
+            Object.entries(groupedExpenses) as [string, expenseResponseType[]][]
+          ).map(([day, expenses]) => (
             <div key={day} className="mb-6">
               <div className="flex justify-between items-end border-b border-gray-100 pb-2 mb-2">
                 <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wide">
-                  {new Date(day).toLocaleDateString("en-US", { weekday: "long", day: "numeric", month: "long" })}
+                  {new Date(day).toLocaleDateString("en-US", {
+                    weekday: "long",
+                    day: "numeric",
+                    month: "long",
+                  })}
                 </h3>
-                <span className="text-xs text-gray-400">{expenses.length} Transactions</span>
+                <span className="text-xs text-gray-400">
+                  {expenses.length} Transactions
+                </span>
               </div>
 
               <div className="flex flex-col">
@@ -74,45 +101,73 @@ const GetExpenses = ({ onEditExpense }: GetExpensesProps) => {
                   const { timePart } = formatExpenseDate(date);
 
                   return (
-                    <div key={id} className="grid grid-cols-[100px_1fr_120px_100px_30px] items-center py-2 px-4 hover:bg-gray-50 rounded-lg group relative">
-                      <span className="text-[12px] text-gray-400 font-medium">{timePart}</span>
-
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 flex items-center justify-center">{getCategoryIcon(category)}</div>
-                        <p className="font-semibold text-gray-700 truncate max-w-[200px]">{description}</p>
+                    <div
+                      key={id}
+                      className="flex flex-col sm:grid sm:grid-cols-[80px_1fr_120px_120px_30px] items-start sm:items-center py-4 sm:py-2 px-4 hover:bg-gray-50 rounded-xl group relative border-b sm:border-none border-gray-50 last:border-none"
+                    >
+                      {/* 1. Time Column */}
+                      <div className="flex items-center justify-between w-full sm:w-auto mb-1 sm:mb-0">
+                        <span className="text-[11px] text-gray-400 font-bold uppercase tracking-tight sm:text-[12px] sm:font-medium sm:normal-case">
+                          {timePart}
+                        </span>
+                        {/* REMOVED: The extra mobile category badge that was here */}
                       </div>
 
-                      <div>
+                      {/* 2. Icon & Description Column */}
+                      <div className="flex items-center gap-3 w-full sm:w-auto">
+                        <div className="w-10 h-10 flex items-center justify-center bg-gray-50 rounded-full sm:bg-transparent">
+                          {getCategoryIcon(category)}
+                        </div>
+                        <div className="flex flex-col">
+                          <p className="font-bold text-gray-800 sm:font-semibold sm:text-gray-700 truncate max-w-[180px] sm:max-w-[200px]">
+                            {description}
+                          </p>
+                          {/* Mobile Category Subtext: Shows only on small screens */}
+                          <span className="sm:hidden text-[10px] text-gray-400 font-medium uppercase tracking-wider">
+                            {category}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* 3. Desktop Category Badge: Hidden on mobile */}
+                      <div className="hidden sm:block">
                         <span className="text-[10px] font-bold uppercase px-2 py-1 bg-gray-100 text-gray-500 rounded-md">
                           {category}
                         </span>
                       </div>
 
-                      <div className="text-right">
-                        <h1 className="font-bold text-gray-900 dark:text-gray-500">{formatCurrency(amount)}</h1>
+                      {/* 4. Amount Column: Absolute on mobile for alignment */}
+                      <div className="absolute right-12 top-5 sm:static sm:text-right">
+                        <h1 className="font-black text-gray-900 text-sm sm:text-base">
+                          {formatCurrency(amount)}
+                        </h1>
                       </div>
 
-                      <div className="flex justify-end relative">
-                        <button 
-                          onClick={(e) => { e.stopPropagation(); toggleMenu(id); }}
-                          className="p-1 hover:bg-gray-200 rounded-full text-gray-500 transition-colors"
+                      {/* 5. Action Menu */}
+                      <div className="absolute right-2 top-4 sm:static sm:flex sm:justify-end">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleMenu(id);
+                          }}
+                          className="p-1 hover:bg-gray-200 rounded-full text-gray-400 transition-colors"
                         >
                           <HiOutlineDotsVertical />
                         </button>
 
                         {openMenuId === id && (
-                          <div className="absolute right-0 mt-8 w-32 bg-white border border-gray-100 shadow-lg rounded-lg z-10 py-1 overflow-hidden">
-                            <button 
+                          <div className="absolute right-0 mt-8 w-40 sm:w-32 bg-white border border-gray-100 shadow-2xl rounded-xl z-20 py-1 overflow-hidden">
+                            <button
                               onClick={() => onEditExpense(expense)}
-                              className="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                              className="w-full flex items-center gap-3 px-4 py-3 sm:py-2 text-sm text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition-colors"
                             >
-                              <HiOutlinePencil size={14} /> Edit
+                              <HiOutlinePencil size={16} /> Edit
                             </button>
-                            <button 
+                            <button
                               onClick={() => handleDelete(expense.id)}
-                              className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors border-t border-gray-50"
+                              className="w-full flex items-center gap-3 px-4 py-3 sm:py-2 text-sm text-red-600 hover:bg-red-50 transition-colors border-t border-gray-50"
                             >
-                              <HiOutlineTrash size={14} /> Delete
+                              <HiOutlineTrash size={16} /> Delete
                             </button>
                           </div>
                         )}
@@ -127,9 +182,16 @@ const GetExpenses = ({ onEditExpense }: GetExpensesProps) => {
           {/* --- CHANGE 4: Added Pagination UI Controls --- */}
           <div className="mt-8 mb-4 flex items-center justify-between px-4 py-3 bg-white border border-gray-100 rounded-xl shadow-sm">
             <div className="text-sm text-gray-500">
-              Showing page <span className="font-semibold text-gray-800">{pagination?.page}</span> of <span className="font-semibold text-gray-800">{pagination?.totalPages}</span>
+              Showing page{" "}
+              <span className="font-semibold text-gray-800">
+                {pagination?.page}
+              </span>{" "}
+              of{" "}
+              <span className="font-semibold text-gray-800">
+                {pagination?.totalPages}
+              </span>
             </div>
-            
+
             <div className="flex gap-2">
               <button
                 onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
@@ -138,14 +200,19 @@ const GetExpenses = ({ onEditExpense }: GetExpensesProps) => {
               >
                 <HiChevronLeft size={20} color="black" />
               </button>
-              
+
               <button
                 onClick={() => {
-                  if (!isPlaceholderData && page < (pagination?.totalPages || 1)) {
+                  if (
+                    !isPlaceholderData &&
+                    page < (pagination?.totalPages || 1)
+                  ) {
                     setPage((prev) => prev + 1);
                   }
                 }}
-                disabled={page >= (pagination?.totalPages || 1) || isPlaceholderData}
+                disabled={
+                  page >= (pagination?.totalPages || 1) || isPlaceholderData
+                }
                 className="p-2 border border-gray-200 rounded-lg hover:bg-gray-50 disabled:opacity-30 disabled:hover:bg-transparent transition-colors cursor-pointer"
               >
                 <HiChevronRight size={20} color="black" />
