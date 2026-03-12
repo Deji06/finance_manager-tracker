@@ -47,7 +47,7 @@ const EditProfile = () => {
   const onSubmit = async (data: profileFormData) => {
     try {
       await editProfile(data);
-      console.log("email:", data.email);
+      // console.log("email:", data.email);
       toast.success("Profile updated successfully");
       navigate("/dashboard");
     } catch (error: any) {

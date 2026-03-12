@@ -16,6 +16,8 @@ import type { subscriptionResponseType } from "../types/financial";
 import ProviderIcon from "../components/ProviderIcon";
 import { Link } from "react-router-dom";
 import { DashboardSkeleton } from "../components/skeletons/DashboardSkeleton";
+import { OnboardingModal } from "../components/onBoardingModal";
+import { useEffect } from "react";
 
 const Dashboard = () => {
   const {
@@ -25,6 +27,10 @@ const Dashboard = () => {
     error,
     isFetching,
   } = useDashboard();
+
+  useEffect(() => {
+    console.log("DASHBOARD DATA RE-RENDERED:", dashboardData?.monthlyIncome);
+  }, [dashboardData]);
 
   // Loading state
   if (isLoading || isFetching) return <DashboardSkeleton />;
@@ -63,8 +69,13 @@ const Dashboard = () => {
     currentMonth = "February 2026",
   } = dashboardData || {};
 
+  // console.log(monthlyIncome);
+  console.log("RAW DASHBOARD DATA:", dashboardData);
+  console.log("DESTRUCTURED INCOME:", monthlyIncome);
+
   return (
     <div className="">
+      {monthlyIncome === 0 && <OnboardingModal />}
       {/* Top Navigation Bar */}
       {/* <nav className="max-w-7xl mx-auto px-4 lg:px-8 py-6 flex justify-between items-center">
         <div className="flex items-center gap-3">

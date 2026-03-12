@@ -90,15 +90,15 @@ export const profileUpdateSchema = z.object({
     )
     .optional(),
 
-  phoneNumber: z
-    .string()
-    .regex(
-      /^\+?[1-9]\d{1,14}$/,
-      "Invalid phone number format (use international format, e.g. +2348012345678)",
-    )
-    .min(9, "Phone number is too short")
-    .max(15, "Phone number is too long")
-    .optional(),
+ phoneNumber: z
+  .string()
+  .trim()
+  .transform(val => val === "" ? undefined : val)
+  .refine(
+    val => !val || /^\+?[1-9]\d{1,14}$/.test(val),
+    "Invalid phone number format (use international format, e.g. +2348012345678)"
+  )
+  .optional()
   });
 
 
