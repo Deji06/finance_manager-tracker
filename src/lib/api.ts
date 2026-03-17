@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { supabase } from './supabase'
-import type { expenseType, extraIncomeType, profileFormData, subscriptionFormType} from '../types/financial'
+import type { budgetschemaType, expenseType, extraIncomeType, profileFormData, subscriptionFormType} from '../types/financial'
 
 
 const api = axios.create({
@@ -69,5 +69,15 @@ export const deleteSubscription = (id:string) => api.delete(`api/v1/subscription
 export const getReports = () => api.get('/api/v1/reports');
 export const generateReport = (period: string) => api.post('/api/v1/reports/generate', { period });
 export const getReportByPeriod = (period: string) => api.get(`/api/v1/reports/${period}`);
+
+// budget 
+export const getBudgets = (period:string) => api.get(`/api/v1/budget/${period}`);
+export const createBudget = (data: budgetschemaType) => api.post('/api/v1/budget', data)
+export const deleteBudget = (id:string) => api.delete(`/api/v1/budget/${id}`)
+
+// notifications
+export const getNotifications = () => api.get('/api/v1/notifications')
+export const getUnreadCount = () => api.get('/api/v1/notifications/unread-count')
+export const markAsRead   = (id:string) => api.patch(`/api/v1/notifications/${id}/read`)
 
 export default api

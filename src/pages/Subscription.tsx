@@ -21,7 +21,7 @@ export const Subscription = () => {
     <div className="p-2 max-w-6xl mx-auto">
       <header className="flex justify-between items-center mb-4">
         <div>
-          <h1 className="text-3xl font-black tracking-tight">Subscriptions</h1>
+          <h1 className="text-2xl dark:text-gray-500 font-black tracking-tight">Subscriptions</h1>
           <p className="text-gray-500">Manage your recurring bills and reminders</p>
         </div>
         <button 

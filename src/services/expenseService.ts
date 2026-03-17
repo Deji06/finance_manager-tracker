@@ -50,7 +50,7 @@ export const useUpdateExpense = () => {
         },
         onSuccess: () => {
             queryClient.invalidateQueries({queryKey:['expense']})
-            // queryClient.invalidateQueries({queryKey:['dashboardSumaary']})
+            queryClient.invalidateQueries({queryKey:['budget']})
         }
     })
 }

@@ -5,7 +5,7 @@ import {
   LayoutDashboard,
   CreditCard,
   BarChart3,
-  Lightbulb,
+  // Lightbulb,
   CircleUserRound,
   // Menu,
   // X,
@@ -16,6 +16,9 @@ import { IoWalletSharp } from "react-icons/io5";
 import { GiTakeMyMoney } from "react-icons/gi";
 import { RiMenu4Line } from "react-icons/ri";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
+import { IoIosCreate } from "react-icons/io";
+import { MdNotificationsActive } from "react-icons/md";
+import { MdNotificationsPaused } from "react-icons/md";
 
 import { useAuthStore } from "../store/authStore";
 import ThemeToggle from "../components/ThemeToggle";
@@ -23,6 +26,7 @@ import { useDashboard } from "../services/dashboardService";
 import { formatCurrency } from "../utils/format";
 import Profile from "../components/Profile";
 import {useProfile} from '../services/profileService'
+import NotificationDropdown from "../components/notification/NotificationDropDown";
 
 export default function AppLayout() {
   const { data:dashboardData } = useDashboard();
@@ -85,6 +89,8 @@ export default function AppLayout() {
             onClick={() => setIsProfileOpen(true)}
             className="cursor-pointer"
           />
+          <NotificationDropdown/>
+         {/* <MdNotificationsActive size={22} /> */}
         </div>
       </header>
       
@@ -135,6 +141,15 @@ export default function AppLayout() {
               Dashboard
             </Link>
 
+             <Link
+              to="/budget"
+              onClick={() => setIsSidebarOpen(false)}
+              className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#10B981]/10 hover:text-[#10B981] transition"
+            >
+              <IoIosCreate size={20} />
+              Budget
+            </Link>
+
             <Link
               to="/expenses"
               onClick={() => setIsSidebarOpen(false)}
@@ -171,14 +186,14 @@ export default function AppLayout() {
               Reports
             </Link>
 
-            <Link
+            {/* <Link
               to="/insights"
               onClick={() => setIsSidebarOpen(false)}
               className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#10B981]/10 hover:text-[#10B981] transition"
             >
               <Lightbulb size={20} />
               Insights
-            </Link>
+            </Link> */}
 
             {/* Logout */}
             <button

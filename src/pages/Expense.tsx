@@ -13,7 +13,7 @@ const Expense = () => {
   return (
     <div className="p-3 max-w-5xl mx-auto">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-2xl font-bold text-gray-800">Expenses</h1>
+        <h1 className="text-2xl font-bold text-gray-500">Expenses</h1>
         <button 
           onClick={() => setIsCreateModalOpen(true)}
           className="flex items-center gap-2 bg-[#10B981] hover:bg-[#10b981]/90 text-white px-4 py-2 rounded-lg font-medium transition-colors cursor-pointer"

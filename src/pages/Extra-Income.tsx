@@ -13,7 +13,7 @@ const ExtraIncome = () => {
     <div className="p-3 max-w-5xl mx-auto">
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800">Extra Income</h1>
+          <h1 className="text-2xl font-bold text-gray-500">Extra Income</h1>
           <p className="text-gray-500 text-sm">Manage your side hustles and bonuses</p>
         </div>
         <button 

@@ -101,6 +101,22 @@ export const profileUpdateSchema = z.object({
   .optional()
   });
 
+  export const budgetSchema = z.object({
+  amount: z.number().positive("Amount must be greater than 0"),
+  category: z.enum(['FOOD', 'TRANSPORT', 'ENTERTAINMENT', 'RENT', 'SAVINGS', 'UTILITIES', 'OTHERS']),
+  period: z.string().regex(/^\d{4}-\d{2}$/, "Period must be in YYYY-MM format"),
+  type: z.enum(['EXPENSE_LIMIT', 'SAVINGS_TARGET']).default('EXPENSE_LIMIT'),
+});
+
+export const budgetResponseSchema = budgetSchema.extend({
+  id: z.string().uuid(),    
+  progress: z.number(),
+  actualSpent: z.number(),
+  remaining: z.number(),
+
+});
+
+
 
 export type subscriptionFormType = z.infer<typeof createSubscriptionSchema>
 export type subscriptionResponseType = z.infer<typeof subscriptionResponseSchema>
@@ -110,6 +126,7 @@ export type expenseType = z.infer<typeof createExpenseSchema>
 export type expenseResponseType = z.infer<typeof expenseResponseSchema>
 export type extraIncomeType = z.infer<typeof extraIncomeSchema>
 export type extraIncomeResponseType = z.infer<typeof extraIncomeResponseSchema>
+export type budgetResponseType = z.infer<typeof budgetResponseSchema>
 export type ReportType = {
   id: string;
   period: string; 
@@ -117,6 +134,8 @@ export type ReportType = {
   totalIncome: number;
   generatedAt: string;
 };
+export type budgetschemaType = z.infer<typeof budgetSchema>
+
 
 
 

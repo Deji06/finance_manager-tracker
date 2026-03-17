@@ -11,8 +11,9 @@ import Expense from "./pages/Expense";
 import ExtraIncome from "./pages/Extra-Income";
 import {Subscription} from "./pages/Subscription";
 import EditProfile from "./pages/EditProfile";
-import Insight from "./pages/Insight";
+// import Insight from "./pages/Insight";
 import { Reports } from "./pages/Reports";
+import Budget from "./pages/Budget";
 // import Profile from "./pages/Profile";
 
 const ProtectedLayout = () => {
@@ -52,11 +53,12 @@ export const router = createBrowserRouter([
           {path: "/dashboard",element: <Dashboard /> },
           {path: "/edit-profile", element: <EditProfile /> },
           {path: '/expenses', element: <Expense />},
+          {path: '/budget', element: <Budget/>},
           {path: '/extra-income', element: <ExtraIncome />},
           {path: '/subscription', element: <Subscription />},
           {path: '/expenses', element: <Expense />},
-          {path: '/insights', element: <Insight />},
           {path: '/reports', element: <Reports />},
+          // {path: '/insights', element: <Insight />},
         ],
       },
     ],

@@ -10,6 +10,7 @@ import {
   // Search,
   // ChevronRight
 } from "lucide-react";
+import { AiOutlinePercentage } from "react-icons/ai";
 import { useDashboard } from "../services/dashboardService";
 import { formatCurrency, dateFormatter } from "../utils/format";
 import type { subscriptionResponseType } from "../types/financial";
@@ -67,6 +68,7 @@ const Dashboard = () => {
     netThisMonth = 0,
     upcomingSubscriptions = [],
     currentMonth = "February 2026",
+    percentageOfIncome = 0,
   } = dashboardData || {};
 
   // console.log(monthlyIncome);
@@ -99,7 +101,7 @@ const Dashboard = () => {
       <main className="borde">
         {/* Header Section */}
         <header>
-          <h1 className="text-2xl font-black tracking-tight">Summary</h1>
+          <h1 className="text-2xl font-black tracking-tight dark:text-gray-500">Summary</h1>
           <p className="text-gray-500 font-medium mt-1 uppercas text-xs tracking-widest">
             Overview for{" "}
             {new Date(currentMonth).toLocaleDateString("en-US", {
@@ -154,6 +156,21 @@ const Dashboard = () => {
                       {formatCurrency(totalExpensesThisMonth)}
                     </p>
                   </div>
+
+                  <div className="flex items-center gap-4">
+                    <div className="p-3 bg-white/10 rounded-2xl border border-white/5">
+                      <AiOutlinePercentage size={20} className="text-[#10B981]" />
+                    </div>
+                    <div>
+                      <p className="text-[9px] uppercase text-gray-400 font-bold tracking-wider">
+                       income spent
+                      </p>
+                      <p className="text-xl font-bold">
+                        {percentageOfIncome}
+                      </p>
+                    </div>
+                  </div>
+                  {/* <p> you have spent {percentageOfIncome}% of your income </p> */}
                 </div>
               </div>
             </div>
@@ -232,7 +249,7 @@ const Dashboard = () => {
 
                       <p className="font-bold">{formatCurrency(sub.amount)}</p>
                     </div>
-                    <div className="w-full border border-gray-50"></div>
+                    {/* <div className="w-full border border-gray-50"></div> */}
                   </>
                 ))}
               </div>

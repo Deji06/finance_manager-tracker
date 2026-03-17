@@ -27,7 +27,7 @@ export const Reports = () => {
     <div className="p-4 max-w-5xl mx-auto">
       <header className="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
-          <h1 className="text-3xl font-black tracking-tight">Financial Reports</h1>
+          <h1 className="text-3xl font-black dark:text-gray-500 tracking-tight">Financial Reports</h1>
           <p className="text-gray-500 text-sm">Analyze your monthly income vs spending</p>
         </div>
 
