@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Plus, Trash2, PieChart, AlertTriangle, Check } from "lucide-react";
 import { BudgetSkeleton } from "../components/skeletons/budgetSkeleton";
 import { useDeleteBudget, useGetBudget } from "../services/budgetService";
 import { formatCurrency } from "../utils/format";
-import type { budgetResponseType, budgetschemaType } from "../types/financial";
+import type { budgetResponseType } from "../types/financial";
 import { CreateBudget } from "../components/budget/CreateBudget";
 
 const Budget = () => {

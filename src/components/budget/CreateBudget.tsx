@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
-import { Loader2, Target, Calendar, Banknote } from "lucide-react";
+import { Loader2, Calendar, Banknote } from "lucide-react";
 import { useCreateBudget } from "../../services/budgetService";
 import { budgetSchema } from "../../types/financial";
 

@@ -17,8 +17,8 @@ import { GiTakeMyMoney } from "react-icons/gi";
 import { RiMenu4Line } from "react-icons/ri";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { IoIosCreate } from "react-icons/io";
-import { MdNotificationsActive } from "react-icons/md";
-import { MdNotificationsPaused } from "react-icons/md";
+// import { MdNotificationsActive } from "react-icons/md";
+// import { MdNotificationsPaused } from "react-icons/md";
 
 import { useAuthStore } from "../store/authStore";
 import ThemeToggle from "../components/ThemeToggle";

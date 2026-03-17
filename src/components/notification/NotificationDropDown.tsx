@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MdNotificationsActive, MdNotificationsNone, MdNotificationsPaused } from "react-icons/md";
+import { MdNotificationsActive, MdNotificationsPaused } from "react-icons/md";
 // import { MdNotificationsActive } from "react-icons/md";
 // import { MdNotificationsPaused } from "react-icons/md";
 import { useNotifications } from "../../services/notificationService";
