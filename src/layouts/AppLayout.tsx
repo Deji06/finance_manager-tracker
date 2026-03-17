@@ -60,12 +60,12 @@ export default function AppLayout() {
           {/* Hamburger (Mobile Only) */}
           <button
             onClick={() => setIsSidebarOpen(true)}
-            className="md:hidden p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-800 transition"
+            className="lg:hidden p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-800 transition"
           >
             <RiMenu4Line size={22} />
           </button>
 
-          <h1 className="text-xl lg:text-2xl font-bold text-[#10B981]">
+          <h1 className="text-sm lg:text-2xl font-bold text-[#10B981]">
             Budget Tracker
           </h1>
         </div>
@@ -79,13 +79,13 @@ export default function AppLayout() {
         </div>
 
         {/* Right Section */}
-        <div className="flex items-center gap-x-3">
+        <div className="flex items-center gap-x-2">
           <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
             hi, {profile?.userName || "User"}!
           </p>
           <CircleUserRound
             aria-label="click me"
-            size={25}
+            size={18}
             onClick={() => setIsProfileOpen(true)}
             className="cursor-pointer"
           />

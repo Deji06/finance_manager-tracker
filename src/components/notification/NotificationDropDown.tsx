@@ -17,13 +17,13 @@ const NotificationDropdown = () => {
       >
         {unreadCount > 0 ? (
           <>
-            <MdNotificationsActive size={24} className="" />
+            <MdNotificationsActive size={18} className="" />
             <span className="absolute top-1 right-1 bg-red-500 text-white text-[10px] font-black px-1.5 py-0.5 rounded-full border-2 border-white dark:border-gray-900">
               {unreadCount}
             </span>
           </>
         ) : (
-          <MdNotificationsPaused size={24} className="" />
+          <MdNotificationsPaused size={18} className="" />
         )}
       </button>
 
